@@ -17,6 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="/" />
+        <link rel="preload" href="/video/kew-industrial-background.mp4" as="video" type="video/mp4" />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

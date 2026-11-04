@@ -7,11 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { products } from "@/lib/products";
 
-const CustomImage = ({ src, alt, className, fill = false, ...props }: { src: string; alt: string; className?: string; fill?: boolean; [key: string]: any }) => {
+const CustomImage = ({ src, alt, className, fill = false, loading = "lazy", ...props }: { src: string; alt: string; className?: string; fill?: boolean; loading?: "lazy" | "eager"; [key: string]: any }) => {
   if (fill) {
-    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />;
+    return <img src={src} alt={alt} loading={loading} className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />;
   }
-  return <img src={src} alt={alt} className={className} {...props} />;
+  return <img src={src} alt={alt} loading={loading} className={className} {...props} />;
 };
 
 const enquiry = "https://kewelectricals.com/contact-us";
@@ -193,7 +193,7 @@ export default function HomeExperience() {
   return <div ref={root} className="bg-[#f4f4f1] text-[#111317]">
     <header className="site-header absolute inset-x-0 top-0 z-50 border-b border-white/15 text-white">
       <div className="shell flex h-20 items-center justify-between">
-        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill priority className="object-contain" sizes="90px" /></a>
+        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill loading="eager" className="object-contain" /></a>
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.16em] lg:flex"><a className="nav-link" href="#products">Products</a><a className="nav-link" href="#engineering">Engineering</a><a className="nav-link" href="#legacy">Legacy</a><a className="nav-link" href="#contact">Contact</a></nav>
         <a href={enquiry} className="header-enquiry hidden px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] lg:block">Send an enquiry</a>
         <button className="mobile-menu-toggle fixed right-4 top-3 z-[60] grid h-11 w-11 place-items-center lg:hidden" aria-label="Toggle navigation" aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>

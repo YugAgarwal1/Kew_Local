@@ -11,19 +11,9 @@ const CustomImage = ({ src, alt, className, fill = false, loading = "lazy", ...p
   const webpSrc = src.replace(/\.(png|jpg|jpeg)$/i, '.webp');
   
   if (fill) {
-    return (
-      <picture>
-        <source srcSet={webpSrc} type="image/webp" />
-        <img src={src} alt={alt} loading={loading} className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />
-      </picture>
-    );
+    return <img src={webpSrc} alt={alt} loading={loading} decoding="async" className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />;
   }
-  return (
-    <picture>
-      <source srcSet={webpSrc} type="image/webp" />
-      <img src={src} alt={alt} loading={loading} className={className} {...props} />
-    </picture>
-  );
+  return <img src={webpSrc} alt={alt} loading={loading} decoding="async" className={className} {...props} />;
 };
 
 const enquiry = "https://kewelectricals.com/contact-us";
@@ -205,7 +195,7 @@ export default function HomeExperience() {
   return <div ref={root} className="bg-[#f4f4f1] text-[#111317]">
     <header className="site-header absolute inset-x-0 top-0 z-50 border-b border-white/15 text-white">
       <div className="shell flex h-20 items-center justify-between">
-        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill loading="eager" className="object-contain" /></a>
+        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><img src="/images/kew-logo.webp" alt="KEW Electricals" loading="eager" decoding="sync" className="absolute inset-0 w-full h-full object-contain" /></a>
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.16em] lg:flex"><a className="nav-link" href="#products">Products</a><a className="nav-link" href="#engineering">Engineering</a><a className="nav-link" href="#legacy">Legacy</a><a className="nav-link" href="#contact">Contact</a></nav>
         <a href={enquiry} className="header-enquiry hidden px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] lg:block">Send an enquiry</a>
         <button className="mobile-menu-toggle fixed right-4 top-3 z-[60] grid h-11 w-11 place-items-center lg:hidden" aria-label="Toggle navigation" aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
@@ -588,7 +578,7 @@ export default function HomeExperience() {
     <footer className="site-footer bg-[#080a0c] py-14 text-white/70">
       <div className="shell grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="brand-mark relative h-14 w-28 overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill className="object-contain" sizes="112px" /></div>
+          <div className="brand-mark relative h-14 w-28 overflow-hidden"><img src="/images/kew-logo.webp" alt="KEW Electricals" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-contain" /></div>
           <p className="mt-6 max-w-sm text-sm leading-7">Kusum Engineering Works — electrical switchgear, fusegear, controlgear and power distribution products.</p>
         </div>
         <div>

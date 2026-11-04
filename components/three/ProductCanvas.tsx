@@ -71,10 +71,7 @@ export default function ProductCanvas({ scrollProgress }: { scrollProgress?: Mut
 
   return <div className="relative h-full w-full" aria-label="Interactive generic Form 2 switchgear concept visualization">
     <div className={`absolute inset-0 transition-opacity duration-700 ${modelReady && !modelFailed ? "opacity-0" : "opacity-100"}`}>
-      <picture>
-        <source srcSet="/images/product-focus.webp" type="image/webp" />
-        <img src="/images/product-focus.png" alt="KEW electrical equipment" className="absolute inset-0 w-full h-full object-contain p-5 opacity-85" />
-      </picture>
+      <img src="/images/product-focus.webp" alt="KEW electrical equipment" className="absolute inset-0 w-full h-full object-contain p-5 opacity-85" />
     </div>
     <Canvas
       dpr={[1, 1.75]}

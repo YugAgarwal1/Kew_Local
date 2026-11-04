@@ -8,35 +8,21 @@ import { useGSAP } from "@gsap/react";
 import { products } from "@/lib/products";
 
 const CustomImage = ({ src, alt, className, fill = false, loading = "lazy", ...props }: { src: string; alt: string; className?: string; fill?: boolean; loading?: "lazy" | "eager"; [key: string]: any }) => {
-  const [loaded, setLoaded] = useState(false);
-
+  const webpSrc = src.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+  
   if (fill) {
     return (
-      <>
-        {!loaded && <div className={`absolute inset-0 w-full h-full bg-[#e8e9e6] animate-pulse ${className || ''}`} />}
-        <img
-          src={src}
-          alt={alt}
-          loading={loading}
-          onLoad={() => setLoaded(true)}
-          className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'} ${className || ''}`}
-          {...props}
-        />
-      </>
+      <picture>
+        <source srcSet={webpSrc} type="image/webp" />
+        <img src={src} alt={alt} loading={loading} className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />
+      </picture>
     );
   }
   return (
-    <>
-      {!loaded && <div className={`bg-[#e8e9e6] animate-pulse ${className || ''}`} />}
-      <img
-        src={src}
-        alt={alt}
-        loading={loading}
-        onLoad={() => setLoaded(true)}
-        className={`transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'} ${className || ''}`}
-        {...props}
-      />
-    </>
+    <picture>
+      <source srcSet={webpSrc} type="image/webp" />
+      <img src={src} alt={alt} loading={loading} className={className} {...props} />
+    </picture>
   );
 };
 

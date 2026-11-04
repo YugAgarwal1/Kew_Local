@@ -220,7 +220,7 @@ export default function HomeExperience() {
 
     <main id="top">
       <section data-hero-section className="relative min-h-screen overflow-hidden bg-[#111317] text-white">
-        <video className="hero-video" autoPlay muted loop playsInline preload="metadata" poster="/images/industrial-hero.png" aria-label="KEW engineering background video">
+        <video className="hero-video" autoPlay muted loop playsInline preload="auto" poster="/images/industrial-hero.webp" aria-label="KEW engineering background video">
           <source src="/video/kew-industrial-background.mp4" type="video/mp4" />
         </video>
         <div className="hero-video-overlay" />

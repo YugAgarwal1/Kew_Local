@@ -2,7 +2,6 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Environment, useGLTF } from "@react-three/drei";
-import Image from "next/image";
 import { Component, Suspense, useEffect, useMemo, useRef, useState, type ErrorInfo, type MutableRefObject, type ReactNode } from "react";
 import gsap from "gsap";
 import * as THREE from "three";
@@ -72,7 +71,7 @@ export default function ProductCanvas({ scrollProgress }: { scrollProgress?: Mut
 
   return <div className="relative h-full w-full" aria-label="Interactive generic Form 2 switchgear concept visualization">
     <div className={`absolute inset-0 transition-opacity duration-700 ${modelReady && !modelFailed ? "opacity-0" : "opacity-100"}`}>
-      <Image src="/images/product-focus.png" alt="KEW electrical equipment" fill className="object-contain p-5 opacity-85" sizes="(max-width: 1024px) 100vw, 50vw" />
+      <img src="/images/product-focus.png" alt="KEW electrical equipment" className="absolute inset-0 w-full h-full object-contain p-5 opacity-85" />
     </div>
     <Canvas
       dpr={[1, 1.75]}

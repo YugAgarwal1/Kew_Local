@@ -1,12 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { ArrowRight, ArrowUpRight, Download, Menu, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { products } from "@/lib/products";
+
+const CustomImage = ({ src, alt, className, fill = false, ...props }: { src: string; alt: string; className?: string; fill?: boolean; [key: string]: any }) => {
+  if (fill) {
+    return <img src={src} alt={alt} className={`absolute inset-0 w-full h-full ${className || ''}`} {...props} />;
+  }
+  return <img src={src} alt={alt} className={className} {...props} />;
+};
 
 const enquiry = "https://kewelectricals.com/contact-us";
 const aboutStages = [
@@ -187,7 +193,7 @@ export default function HomeExperience() {
   return <div ref={root} className="bg-[#f4f4f1] text-[#111317]">
     <header className="site-header absolute inset-x-0 top-0 z-50 border-b border-white/15 text-white">
       <div className="shell flex h-20 items-center justify-between">
-        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><Image src="/images/kew-logo.png" alt="KEW Electricals" fill priority className="object-contain" sizes="90px" /></a>
+        <a href="#top" aria-label="KEW Electricals home" className="brand-mark relative z-10 block h-11 w-[90px] overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill priority className="object-contain" sizes="90px" /></a>
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.16em] lg:flex"><a className="nav-link" href="#products">Products</a><a className="nav-link" href="#engineering">Engineering</a><a className="nav-link" href="#legacy">Legacy</a><a className="nav-link" href="#contact">Contact</a></nav>
         <a href={enquiry} className="header-enquiry hidden px-5 py-3 text-[11px] font-bold uppercase tracking-[0.14em] lg:block">Send an enquiry</a>
         <button className="mobile-menu-toggle fixed right-4 top-3 z-[60] grid h-11 w-11 place-items-center lg:hidden" aria-label="Toggle navigation" aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
@@ -243,7 +249,7 @@ export default function HomeExperience() {
               <div className="about-media-sticky">
                 {aboutStages.map((stage, index) => (
                   <div key={stage.number} data-about-image className={`about-image ${index === 0 ? "is-first" : ""}`}>
-                    <Image src={stage.image} alt="" fill className={`${stage.fit} ${stage.position}`} sizes="(max-width: 900px) 100vw, 55vw" />
+                    <CustomImage src={stage.image} alt="" fill className={`${stage.fit} ${stage.position}`} sizes="(max-width: 900px) 100vw, 55vw" />
                     <div className="about-image-shade" />
                     <div className="about-image-caption"><span>{stage.number}</span><p>{stage.label}</p></div>
                   </div>
@@ -254,7 +260,7 @@ export default function HomeExperience() {
               <div className="about-line" aria-hidden="true"><i data-about-progress /></div>
               {aboutStages.map((stage, index) => (
                 <article key={stage.number} data-about-stage className={`about-stage ${index === 0 ? "is-active" : ""}`}>
-                  <div className="about-stage-media" aria-hidden="true"><Image src={stage.image} alt="" fill className={`${stage.fit} ${stage.position}`} sizes="100vw" /></div>
+                  <div className="about-stage-media" aria-hidden="true"><CustomImage src={stage.image} alt="" fill className={`${stage.fit} ${stage.position}`} sizes="100vw" /></div>
                   <p className="eyebrow">{stage.number} / {stage.label}</p>
                   <h3>{stage.title}</h3>
                   <p>{stage.body}</p>
@@ -297,7 +303,7 @@ export default function HomeExperience() {
 
           <div id="product-panel" role="tabpanel" aria-labelledby={`product-tab-${active}`} className="product-panel grid overflow-hidden lg:grid-cols-[1.08fr_.92fr]">
             <div data-product-visual data-mobile-scroll className="product-visual relative min-h-[390px] overflow-hidden md:min-h-[520px]">
-              <Image key={current.image + active} src={current.image} alt={`${current.name} from the KEW Electricals product range`} fill className={`animate-in ${current.imageFit} object-center ${current.imageFit === "object-contain" ? "p-6 md:p-10" : ""}`} sizes="(max-width: 1024px) 100vw, 55vw" />
+              <CustomImage key={current.image + active} src={current.image} alt={`${current.name} from the KEW Electricals product range`} fill className={`animate-in ${current.imageFit} object-center ${current.imageFit === "object-contain" ? "p-6 md:p-10" : ""}`} sizes="(max-width: 1024px) 100vw, 55vw" />
               <div className="product-visual-index" aria-hidden="true">0{active + 1} / 0{products.length}</div>
             </div>
 
@@ -324,7 +330,7 @@ export default function HomeExperience() {
       </section>
 
       <section id="engineering" data-manufacturing className="relative min-h-[760px] overflow-hidden bg-[#0c0f12] text-white">
-        <div data-manufacturing-image className="absolute inset-0 overflow-hidden"><Image src="/images/switchgear-system.png" alt="Industrial switchgear system" fill className="scale-105 object-cover object-center opacity-72" sizes="100vw" /></div>
+        <div data-manufacturing-image className="absolute inset-0 overflow-hidden"><CustomImage src="/images/switchgear-system.png" alt="Industrial switchgear system" fill className="scale-105 object-cover object-center opacity-72" sizes="100vw" /></div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,11,.96)_0%,rgba(5,8,11,.84)_43%,rgba(5,8,11,.28)_76%,rgba(5,8,11,.2)_100%)]" />
         <div data-manufacturing-copy data-mobile-scroll className="shell relative flex min-h-[760px] flex-col justify-center py-20">
           <div data-reveal className="max-w-3xl">
@@ -377,7 +383,7 @@ export default function HomeExperience() {
               <a href="https://kewelectricals.com/" className="featured-action mt-9">Explore enclosures <ArrowRight size={16} /></a>
             </div>
           </div>
-          <div data-featured-image className="featured-product-stage relative min-h-[460px] overflow-hidden lg:min-h-full"><Image src="/images/product-detail.png" alt="KEW electrical enclosure range" fill className="featured-product-image object-contain p-10 md:p-14" sizes="(max-width: 1024px) 100vw, 55vw" /><div className="featured-image-shade" /><span>Enclosure range / product view</span></div>
+          <div data-featured-image className="featured-product-stage relative min-h-[460px] overflow-hidden lg:min-h-full"><CustomImage src="/images/product-detail.png" alt="KEW electrical enclosure range" fill className="featured-product-image object-contain p-10 md:p-14" sizes="(max-width: 1024px) 100vw, 55vw" /><div className="featured-image-shade" /><span>Enclosure range / product view</span></div>
         </div>
       </section>
 
@@ -403,7 +409,7 @@ export default function HomeExperience() {
 
           <div className="event-feature group relative mb-6 grid overflow-hidden bg-[#111317] text-white lg:grid-cols-[1.15fr_.85fr]">
             <div className="relative min-h-[330px] overflow-hidden lg:min-h-[430px]">
-              <Image
+              <CustomImage
                 src="/images/team-event.png"
                 alt="KEW Electricals industry event"
                 fill
@@ -457,7 +463,7 @@ export default function HomeExperience() {
           <div className="grid gap-6 md:grid-cols-2">
             <article className="event-card group border border-black/10 bg-white transition-colors duration-300 hover:border-[#e52529]/50">
               <div className="relative aspect-[16/9] overflow-hidden bg-[#e8e9e6]">
-                <Image
+                <CustomImage
                   src="/images/switchgear-lineup.png"
                   alt="Illustrative industrial switchgear lineup"
                   fill
@@ -488,7 +494,7 @@ export default function HomeExperience() {
 
             <article className="event-card group border border-black/10 bg-white transition-colors duration-300 hover:border-[#e52529]/50">
               <div className="relative aspect-[16/9] overflow-hidden bg-[#e8e9e6]">
-                <Image
+                <CustomImage
                   src="/images/switchgear-busbar.png"
                   alt="Illustrative switchgear busbar detail"
                   fill
@@ -539,7 +545,7 @@ export default function HomeExperience() {
       <section data-quality className="quality-section grid min-h-[62vh] md:grid-cols-2">
         <div className="quality-image relative min-h-[420px] overflow-hidden bg-[#111317]">
           <div data-quality-image className="absolute inset-0 overflow-hidden">
-            <Image src="/images/switchgear-busbar.png" alt="Illustrative switchgear connection detail" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+            <CustomImage src="/images/switchgear-busbar.png" alt="Illustrative switchgear connection detail" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
           <span className="absolute bottom-6 left-6 text-[9px] font-bold uppercase tracking-[.18em] text-white/65">Illustrative system detail</span>
@@ -554,7 +560,7 @@ export default function HomeExperience() {
       </section>
 
       <section id="contact" className="contact-section relative isolate overflow-hidden bg-[#111317] text-white">
-        <Image src="/images/industrial-hero.png" alt="Industrial electrical infrastructure" fill className="contact-background object-cover" sizes="100vw" />
+        <CustomImage src="/images/industrial-hero.png" alt="Industrial electrical infrastructure" fill className="contact-background object-cover" sizes="100vw" />
         <div className="contact-overlay" aria-hidden="true" />
         <div className="shell relative z-10 flex min-h-[620px] items-center py-20 md:py-28 lg:min-h-[700px] lg:py-32">
           <div data-reveal className="max-w-4xl">
@@ -570,7 +576,7 @@ export default function HomeExperience() {
     <footer className="site-footer bg-[#080a0c] py-14 text-white/70">
       <div className="shell grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="brand-mark relative h-14 w-28 overflow-hidden"><Image src="/images/kew-logo.png" alt="KEW Electricals" fill className="object-contain" sizes="112px" /></div>
+          <div className="brand-mark relative h-14 w-28 overflow-hidden"><CustomImage src="/images/kew-logo.png" alt="KEW Electricals" fill className="object-contain" sizes="112px" /></div>
           <p className="mt-6 max-w-sm text-sm leading-7">Kusum Engineering Works — electrical switchgear, fusegear, controlgear and power distribution products.</p>
         </div>
         <div>
